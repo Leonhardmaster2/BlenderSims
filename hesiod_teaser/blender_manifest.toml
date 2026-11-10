@@ -1,0 +1,14 @@
+schema_version = "1.0.0"
+
+id = "hesiod_teaser"
+version = "0.7.0"
+name = "Hesiod Teaser"
+tagline = "One-click Water, Rock and Snow teaser shots on Hesiod terrain"
+maintainer = "Hesiod"
+type = "add-on"
+tags = ["Render", "Physics", "Sequencer"]
+blender_version_min = "4.2.0"
+license = ["SPDX:GPL-3.0-or-later"]
+
+[permissions]
+files = "Write simulation caches, rendered frames and the exported film to the project folder"
