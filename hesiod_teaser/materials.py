@@ -4,7 +4,7 @@ snow, and the dust / powder volumes. Everything is in metres (object space).
 
 import bpy
 
-from .compat import new_material, set_input
+from .compat import new_material
 
 
 class Tree:

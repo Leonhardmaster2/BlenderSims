@@ -3,7 +3,7 @@ import os
 import bpy
 from bpy.props import EnumProperty
 
-from . import edit, pipeline, props, timeline
+from . import edit, pipeline, props
 from .shots import common
 
 SHOT_ITEMS = (("WATER", "Water", ""), ("ROCK", "Rock", ""), ("SNOW", "Snow", ""))

@@ -1,7 +1,5 @@
 """Fast numpy mesh construction (grids, solids, prisms, boulders)."""
 
-import math
-
 import bpy
 import numpy as np
 

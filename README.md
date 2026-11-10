@@ -119,10 +119,11 @@ scripts/teaser_cli.py     the same pipeline from a terminal
 scripts/package.py        rebuilds hesiod_teaser.zip
 tests/e2e.py              tiny end-to-end run (build, bake, render, export)
 tests/terrain_sources.py  Hesiod tile and heightmap inputs
+tests/compat.py           quick check on another Blender version
 ```
 
 `<your blend>/hesiod_teaser/cache/<shot>/` holds the simulation caches, `render/<shot>/` the frames, and the exported
-film is `hesiod_teaser_0001-0600.mp4`.
+film is `hesiod_teaser_0001-0600.mp4` (600 frames at the default 24 fps).
 
 ## Good to know
 
@@ -138,11 +139,16 @@ film is `hesiod_teaser_0001-0600.mp4`.
 
 ## What has and has not been tested
 
-Developed and run headless against Blender 5.2.3 LTS, with the full pipeline (build, low-resolution bakes, re-timing,
-preview renders of all three shots, edit, MP4 export) exercised by `tests/e2e.py`; build and registration also run on
-4.5.9 LTS. The looks were judged from small preview frames only.
+Run headless with Blender 5.2.3 LTS: `tests/e2e.py` does the whole thing on the built-in terrain at tiny settings
+(build, bake, re-time, render every frame of all three shots, assemble, export the MP4), and `tests/terrain_sources.py`
+checks a tile built the way the Hesiod bridge builds it (plus its texture, an anchor object and a heightmap file).
+`tests/compat.py` (build, bake, re-time, one rendered frame per shot, assemble) also passes on 4.5.9 LTS.
+The looks were judged from small, low-sample preview frames only.
 
-Not tested: Final-quality bakes and renders (resolution-dependent behaviour such as the exact surge timing is what the
-re-timing step is for), GPU rendering, the panel in an interactive Blender window including the background
-(progress-bar) bake and render buttons, and sound strips. Expect to tune densities, exposure and the simulation knobs
-to taste once you see full-resolution frames.
+Not tested: Final-quality bakes and renders (resolution changes things like the exact surge timing, which is what the
+re-timing step is for), GPU rendering, Blender 4.2-4.4, the panel in an interactive Blender window including the
+background (progress-bar) Bake and Render buttons, a live bridge connection, and sound strips. Expect to tune densities,
+exposure and the simulation knobs to taste once you see full-resolution frames.
+
+The tests ran against Blender's `bpy` Python module rather than the desktop application. In that module Mantaflow
+needs a small initialisation fix (`tests/manta_fix.py`); the application does not, and the add-on itself does not use it.

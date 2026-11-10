@@ -216,7 +216,7 @@ def build(context, settings, hf):
         return pos, aim, d, min(max(36.0 * d * 0.58 / settings.slab_width, 18.0), 40.0)
 
     cam_pos, look, dist, lens = camera_at(s_cam)
-    cam = common.add_camera(scene, env, "HT_Snow_Camera", cam_pos, look, lens=lens, clip_start=0.1)
+    common.add_camera(scene, env, "HT_Snow_Camera", cam_pos, look, lens=lens, clip_start=0.1)
 
     # the fall line the camera sits on, kept so the shot can be re-timed after baking
     path_me = meshgen.mesh_from_arrays("HT_Snow_CameraPath", np.column_stack([pts, pz]))

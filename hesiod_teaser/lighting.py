@@ -2,8 +2,6 @@
 
 import math
 
-import bpy
-
 from .compat import new_world, set_enum, set_if
 
 LOOKS = {

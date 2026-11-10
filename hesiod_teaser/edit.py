@@ -24,7 +24,21 @@ def rendered_frames(settings, kind):
     return paths if all(os.path.isfile(p) for p in paths) else []
 
 
+_COUNT_CACHE = {}
+
+
 def count_rendered(settings, kind):
+    """(frames on disk, frames needed). Cached briefly: the panel asks on every redraw."""
+    import time
+    hit = _COUNT_CACHE.get(kind)
+    if hit is not None and time.time() - hit[0] < 2.0:
+        return hit[1]
+    result = _count_rendered(settings, kind)
+    _COUNT_CACHE[kind] = (time.time(), result)
+    return result
+
+
+def _count_rendered(settings, kind):
     scene = bpy.data.scenes.get(common.SCENE_NAMES[kind])
     if scene is None:
         return 0, 0

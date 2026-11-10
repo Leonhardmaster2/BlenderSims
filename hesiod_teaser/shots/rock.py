@@ -5,15 +5,13 @@ Gravel is a particle system bouncing on the same collider. Both feed a small
 Mantaflow smoke domain, and that dust is what actually covers the lens.
 """
 
-import math
-
 import bpy
 import numpy as np
 from mathutils import Euler, Vector
 
 from .. import lighting, materials, meshgen
 from ..compat import set_enum, set_if
-from ..heightfield import smoothstep, spectral_noise, worley
+from ..heightfield import spectral_noise, worley
 from ..stage import Stage
 from . import common
 
@@ -79,7 +77,7 @@ def build(context, settings, hf):
     spots = [(x, y) for y in (0.0, -2.0, 2.0, -5.0) for x in (0.0, -2.5, 2.5, -5.0, 5.0)]
     cam_pos = common.best_viewpoint(loc, spots, targets, CAM_HEIGHT)
     aim_y = 22.0
-    cam = common.add_camera(scene, env, "HT_Rock_Camera", cam_pos,
+    common.add_camera(scene, env, "HT_Rock_Camera", cam_pos,
                             (0.0, aim_y, ground(0.0, aim_y) + 1.5), lens=19.0, clip_start=0.05)
 
     # -- timing -------------------------------------------------------------

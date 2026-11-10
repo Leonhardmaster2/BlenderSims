@@ -100,7 +100,7 @@ def build(context, settings, hf):
 
     # -- terrain ------------------------------------------------------------
     mat_rock = materials.rock("HT_Rock_Wet", hf.texture if settings.use_hesiod_texture else None, wet=True)
-    terrain = common.link(env, stage.build_terrain("HT_Water_Terrain"), mat_rock)
+    common.link(env, stage.build_terrain("HT_Water_Terrain"), mat_rock)
     collider = common.link(sim, stage.build_collider("HT_Water_Collider", stride=2))
     common.make_effector(collider)
     common.sim_only(collider)
