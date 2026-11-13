@@ -97,12 +97,19 @@ def _domain(scene):
     raise RuntimeError("Domain object of '%s' lost its Fluid modifier" % scene.name)
 
 
+def _show_domain(scene):
+    """Go to a frame where the domain is visible: fluid operators refuse hidden objects,
+    and a liquid domain is keyed hidden until its simulation starts."""
+    scene.frame_set(int(scene.get("ht_sim_end", scene.frame_end)))
+
+
 def free_bake(context, kind):
     scene = shot_scene(kind)
     if scene is None:
         return
     dom, _ = _domain(scene)
     activate(context, scene)
+    _show_domain(scene)
     with _override(context, scene, dom):
         bpy.ops.fluid.free_all()
     activate(context, props.master_scene(context))
@@ -120,6 +127,7 @@ def bake_shot(context, kind, interactive=False):
     activate(context, scene)
     if hasattr(builder, "pre_bake"):
         builder.pre_bake(context, scene)
+    _show_domain(scene)
     t0 = time.time()
     with _override(context, scene, dom):
         if d.has_cache_baked_any:

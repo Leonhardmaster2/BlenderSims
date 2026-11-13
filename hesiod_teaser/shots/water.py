@@ -174,6 +174,10 @@ def build(context, settings, hf):
     # an empty liquid domain renders as a solid block: keep it hidden until water exists
     common.key(dom_obj, "hide_render", sim_start, True)
     common.key(dom_obj, "hide_render", sim_start + 1, False)
+    # same in the viewport, but visible from the first simulated frame on so the
+    # bake can run (Blender refuses to bake a domain that is hidden)
+    common.key(dom_obj, "hide_viewport", sim_start - 1, True)
+    common.key(dom_obj, "hide_viewport", sim_start, False)
 
     # -- the surge ------------------------------------------------------------
     # A hump of water that wells up out of the basin and is driven over the sill.
